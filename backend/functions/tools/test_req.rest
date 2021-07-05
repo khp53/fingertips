@@ -1,0 +1,118 @@
+### Use this file to test out your REST call before implementing them in the code
+
+# Local JSON-Server ### Change the IP address below to your PC's IP address. Remain the port number 3000 unchanged # @baseUrl = http://192.168.0.5:3000
+
+# @baseUrl = http://localhost:5001/fingertips-beb3b/us-central1/api
+
+# Live Firebase
+@baseUrl = https://us-central1-fingertips-beb3b.cloudfunctions.net/api
+@accessToken = eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ZGYxMzgwM2I3NDM2NjExYWQ0ODE0NmE4ZGExYjA3MTg2ZmQxZTkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZmluZ2VydGlwcy1iZWIzYiIsImF1ZCI6ImZpbmdlcnRpcHMtYmViM2IiLCJhdXRoX3RpbWUiOjE2MjQ2ODMzOTIsInVzZXJfaWQiOiI5TzFmTGE1UVAzVzh4eHBsNVlybFJldUR0NWwyIiwic3ViIjoiOU8xZkxhNVFQM1c4eHhwbDVZcmxSZXVEdDVsMiIsImlhdCI6MTYyNDY4MzM5MiwiZXhwIjoxNjI0Njg2OTkyLCJlbWFpbCI6InRlc3QyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjpmYWxzZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJlbWFpbCI6WyJ0ZXN0MkBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.JwFvxDsLigKgndNGMiJ1BNlkuNmbohj3dSRjSxjEYHRXhviPXsi0jkuDEMJ696oC4V9cHSUikmCqty-l_VJfSt_yeD0LI-VN679bQbEqKD0ehdXxDIry4ILit-sCmvyMKZv-thj1UTKkKVQWyjLWyI3I8LovPp7mUF-es_gle77rCJIUQ3NAX1geBjh0Ld6m4I-r_K-frwUHj-U-iFLqpQcvlp0XDEM0_MgNbqbzojW8CagDbHFgnZJ52p9GbPdOQ78FOpOCvvCKcdCatP92FDeeJJmiZsmM6yMhkFnwe1eaaN-Gzyh8Opxot27Jb5zoJ2d_K6takqHeRNn1F6uvwQ
+@userId = tIZ9D8Wbjignyqo4Q79gyFNDiNB2
+@userId2 = NWEZmAmDwybsbRNQCpacDrgXpKj1
+
+### Request 1 : Get a user whose correct 'login' and 'password' ### Purpose : To simulate the authentication process. GET {{baseUrl}}/users?login=alex&password=123
+
+### Request 2 : Get the counter data for a given user
+GET {{baseUrl}}/users?user=user1
+
+### Request 3 : Update the information of a given user id
+PUT {{baseUrl}}/users/tAkBGrJE2wWSwwYwLuO1
+Content-Type: application/json
+
+{
+    "user": "user1",
+    "login": "khp53"
+}
+
+### Request 3 : Update the information of a given user id
+POST {{baseUrl}}/auths/signin
+Content-Type: application/json
+
+{"email": "test2@gmail.com","password": "test1234"}
+
+### Request: Get all users
+GET {{baseUrl}}/users
+
+### Request: Add a new user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "login": "maliha",
+    "photoUrl": "",
+    "password": "123",
+    "name": "Maliha Shahed",
+    "id": "user2"
+}
+
+### Request: Add a new org
+POST {{baseUrl}}/organizations/hmgqfe4EuqfNHQWHttvYvL7laI22
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "name": "1 Takay Ahar",
+    "photoUrl": "https://firebasestorage.googleapis.com/v0/b/fingertips-beb3b.appspot.com/o/organization%2F1takay.png?alt=media&token=a9d5ade9-8607-442c-82cd-4e3edb9c0d68",
+    "address": "Dhaka, Bangladesh",
+    "phoneNumber": "01812345678",
+    "email": "donate@1taka.ahar",
+    "role": "organization",
+    "tagLine": "A Meal For Everyone!",
+    "coverPhotoUrl": "https://firebasestorage.googleapis.com/v0/b/fingertips-beb3b.appspot.com/o/organization%2F1takaycover.png?alt=media&token=1390855d-41d3-4f7c-b476-6b717ed291c7"
+}
+
+### Request: Add a new org
+POST {{baseUrl}}/organizations/9O1fLa5QP3W8xxpl5YrlReuDt5l2
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "name": "Biddanondo Foundation",
+    "photoUrl": "https://firebasestorage.googleapis.com/v0/b/fingertips-beb3b.appspot.com/o/organization%2Fbiddanondo.jpg?alt=media&token=0c0f24e2-b726-491b-8528-cccf49f52e83",
+    "address": "Dhaka, Bangladesh",
+    "phoneNumber": "01812345678",
+    "email": "donate@1taka.ahar",
+    "role": "organization",
+    "tagLine": "This Earth is There's As Well!",
+    "coverPhotoUrl": "https://firebasestorage.googleapis.com/v0/b/fingertips-beb3b.appspot.com/o/organization%2Fbiddanondocover.jpg?alt=media&token=fa63b98a-79af-4982-9764-2d262ed10997"
+}
+
+### Request: Add a new user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+    "login": "karimul",
+    "photoUrl": "",
+    "password": "123",
+    "name": "MD Karimul Hasan",
+    "id": "user1"
+}
+
+### Request: Delete a user
+DELETE {{baseUrl}}/users/user2
+
+### Request: Get all the organization
+GET {{baseUrl}}/organizations
+
+### Request: patch a org data
+PATCH {{baseUrl}}/organizations/A5JkNNhBfQ7MJhDTr0pD
+Content-Type: application/json
+
+{
+    "tagLine": "A Meal For Everyone!"
+}
+
+### Request: patch a org data
+PATCH {{baseUrl}}/organizations/8PebvJQXWPBgQiWkiujn
+Content-Type: application/json
+
+{
+    "tagLine": "This Earth is There's As Well!"
+}
+
+### Request: login
+GET {{baseUrl}}/users?email=karimul@gmail.com&password=test123
+
+### Request: get all posts of a single org
+GET {{baseUrl}}/posts?email=donate@1taka.ahar

@@ -1,0 +1,98 @@
+# Live Firebase
+# Variables:
+#   -baseUrl: API base URL
+#   -API KEY: project API key obtained from Firebase console (website)
+#   -accountUrl: base URL for authentication from Firebase
+@baseUrl = https://us-central1-fingertips-beb3b.cloudfunctions.net/api
+@API_KEY = AIzaSyDeFDqpMF_E4eCGLp6_3sUwM6bZRg3J5yg
+@accountUrl = https://identitytoolkit.googleapis.com/v1/accounts
+
+# Each consequence request must be included with access token
+# Then token is obtained after logging in
+
+@accessToken = eyJhbGciOiJSUzI1NiIsImtpZCI6Ijg4ZGYxMzgwM2I3NDM2NjExYWQ0ODE0NmE4ZGExYjA3MTg2ZmQxZTkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vZmluZ2VydGlwcy1iZWIzYiIsImF1ZCI6ImZpbmdlcnRpcHMtYmViM2IiLCJhdXRoX3RpbWUiOjE2MjQ2MjUyNjksInVzZXJfaWQiOiJOV0VabUFtRHd5YnNiUk5RQ3BhY0RyZ1hwS2oxIiwic3ViIjoiTldFWm1BbUR3eWJzYlJOUUNwYWNEcmdYcEtqMSIsImlhdCI6MTYyNDYyNTI2OSwiZXhwIjoxNjI0NjI4ODY5LCJlbWFpbCI6ImtocEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsia2hwQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6InBhc3N3b3JkIn19.HCzugycY_KLjHGf-lW4qYvlFz6pgFT_c-hhgoGcTeOwRpmuCDCJeWVpa6EiM2lFkKu6KKj1Jf83c_t807LeX1FnNKYLrofZsG6ZNGFnab0DLVXBxJMZY55Pcq3CqT8uFmUkgatFJSIJK4ak5-JxmksTsXDnfcYmzKASCe4XNHKcPm1IXV4RwkomW7HkbNUsMNqSaIPylfh_4W5_Mq2tXLDXlwLhYIXTFC2fvSA7Y_I5Mta_8GGytJocubeSR9l0cb2C2UTxJdbARP46S9GWloa2ABid5WO1lYqu7nutMK15IERYPD4KhvGWNWGJexN_soE14JjxinmZAvkhhekeFYg
+@userId = tIZ9D8Wbjignyqo4Q79gyFNDiNB2
+@userId2 = NWEZmAmDwybsbRNQCpacDrgXpKj1
+
+############################################################################################################
+## Request 1: Sign up with email / password
+# Accessing the Google Sign up API directly from the clien
+# 
+# API format:
+#    POST https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
+# 
+# Documentation:  https://firebase.google.com/docs/reference/rest/auth
+
+POST {{accountUrl}}:signUp?key={{API_KEY}}
+Content-Type: application/json
+
+{
+    "email": "jessica2@mockmail.com",
+    "password": "abc123",
+    "returnSecureToken": true
+}
+
+### Request 2 Sign in with email and password
+# Accessing the Google Sign in API directly from the clien
+# 
+# API format:
+#     POST https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=[API_KEY]
+POST {{accountUrl}}:signInWithPassword?key={{API_KEY}}
+Content-Type: application/json
+
+{
+    "email": "jessica2@mockmail.com",
+    "password": "abc123",
+    "returnSecureToken": true
+}
+############################################################################################################
+
+
+
+############################################################################################################
+# Refactor the signin with Google API, sign in from the backend (with Node JS)
+
+## Request 1: Sign up with email / password  
+POST {{baseUrl}}/auths/signup
+Content-Type: application/json
+
+{
+    "email": "hasan@gmail.com",
+    "password": "test1234"
+}
+
+### Request 2 Sign in with email and password
+POST {{baseUrl}}/auths/signin
+Content-Type: application/json
+
+{"email": "khp4121@gmail.com","password": "test1234"}
+
+### Request 3 : Accessing profile for the signed in user
+GET {{baseUrl}}/users/{{userId}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Request 4 : Accessing all users. 
+# This request should be blocked (in this example of application). The signed-in user
+# can only acccess his/her profile, but not the others'
+GET {{baseUrl}}/users
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Request 5 : Accessing the counter info for the signed in user
+GET {{baseUrl}}/auths
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+### Request 6 : Update the information of a given counter
+POST {{baseUrl}}/users/{{userId2}}
+Content-Type: application/json
+Authorization: Bearer {{accessToken}}
+
+{
+    "email": "khp@gmail.com",
+    "name": "Hasan",
+    "photoUrl": "https://firebasestorage.googleapis.com/v0/b/fingertips-beb3b.appspot.com/o/karimul%202.jpg?alt=media&token=83762adf-9c3b-4fff-b148-8f15aabec4b8",
+    "role": "user"
+}
+
